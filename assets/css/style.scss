@@ -1,0 +1,2131 @@
+@use 'reset';
+
+$black:#333;
+$black30: rgba(0, 0, 0, .3);
+$black50: rgba(0, 0, 0, .5);
+$blue: #091B76;
+$blue-grade: linear-gradient(to right, #091B76, #0049BF);
+$pink: #D21771;
+$bg: #E8ECFD;
+$bg-grade: linear-gradient(to right, #CEDCFF, #EEE9FF 50%, #D1DCFF 100%);
+$white: #fff;
+$white40: rgba(255, 255, 255, .4);
+$white80: rgba(255, 255, 255, .8);
+$blue-bg: #e0e4fa;
+
+@mixin wp {
+    max-width: 1024px;
+    margin: 0 auto;
+    position: relative;
+}
+
+@mixin mq ($width) {
+    @media screen and (max-width: $width) {
+        @content;
+    }
+}
+
+@mixin bg($bg) {
+    -webkit-clip-path: inset(0);
+            clip-path: inset(0); 
+    z-index: -1;
+    &::before {
+        content: "";
+        position: fixed; 
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        background-image: $bg;
+        opacity: .8;
+    }
+}
+
+@mixin linew ($height, $top, $left, $right, $name, $width) {
+    width: 98%;
+    height: $height;
+    background-color: $blue;
+    position: absolute;
+    top: $top;
+    left: $left;
+    right: $right;
+    animation: #{$name} 3s linear forwards;
+    opacity: 0;
+
+    @keyframes #{$name} {
+        0% {
+            width:0%;
+            opacity: 0;
+        }
+        3% {
+            opacity: 1;
+        }
+        100%{
+            width: $width;
+            opacity: 1;
+        }
+    }
+}
+
+@mixin lineh ($height, $top, $left, $right, $percent, $name){
+    width: .1em;
+    height: $height;
+    background-color: $blue;
+    position: absolute;
+    top: $top;
+    left: $left;
+    right: $right;
+    animation: #{$name} 3s linear 1s forwards;
+    opacity: 0;
+
+    @keyframes #{$name} {
+        0% {
+            height: 0%;
+        }
+        3% {
+            opacity: 1;
+        }
+        100% {
+            height:$percent;
+            opacity: 1;
+        }
+    }
+}
+
+@mixin h3 {
+    background-color: $white40;
+    width: 100%;
+    position: absolute;
+    z-index: 5;
+    margin-top: 120px;
+    & > p {
+        color: $blue;
+        text-shadow:
+        1px 1px 0 $white,
+        -1px 1px 0 $white,
+        -1px -1px 0 $white,
+        1px -1px 0 $white;
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 900;
+        letter-spacing: .2em;
+        padding: 24px 0;
+        @include mq (650px) {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            padding: 16px;
+        }
+        &::before {
+            content: "";
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: $blue;
+            transform: rotate(45deg);
+            margin-right: 16px;
+            box-shadow:
+            1px 1px 0 $white,
+            -1px 1px 0 $white,
+            -1px -1px 0 $white,
+            1px -1px 0 $white;
+            @include mq (650px) {
+                width: 16px;
+                height: 16px;
+            }
+        }
+        &::after {
+            content: "";
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: $blue;
+            transform: rotate(45deg);
+            margin-left: 8px;
+            box-shadow:
+            1px 1px 0 $white,
+            -1px 1px 0 $white,
+            -1px -1px 0 $white,
+            1px -1px 0 $white;
+            @include mq (650px) {
+                width: 16px;
+                height: 16px;
+            }
+        }
+    }
+}
+
+@mixin titleline ($top, $left, $right) {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 2px;
+    background: $blue;
+    position: absolute;
+    top: $top;
+    left: $left;
+    right: $right;
+}
+
+@mixin listmark {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: $blue;
+    transform: rotate(45deg);
+    margin-right: 16px;
+}
+
+
+body {
+    background-color: $bg;
+    margin: 0 auto;
+    font-size: 1rem;
+    color: $black;
+    position: relative;
+    font-family: 'Noto Sans JP', sans-serif;
+    &::-webkit-scrollbar {
+        background: linear-gradient(to bottom, #CEDCFF, #EEE9FF 50%, #D1DCFF 100%);
+        width: 12px;
+        height: 12px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: rgb(176, 180, 232);
+        border-radius: 2px;
+    }
+}
+
+#header {
+    background: $bg-grade;
+    padding: 8px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    & > h1 {
+        @include wp;
+        padding: 4px 16px;
+    }
+}
+
+#main-section {
+    & > #top {
+        background-image: url(../img/top.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        position: relative;
+        @include mq (960px) {
+            height: auto;
+        }
+        & > .entry-btn {
+            text-decoration: none;
+            font-size: 1.25rem;
+            margin: 24px 0 128px 25%;
+            padding: 16px 24px;
+            background: $bg-grade;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            position: relative;
+            border-radius: 3px;
+            border: 2px solid $blue;
+            color: $blue;
+            font-weight: 800;
+            box-shadow: 2px 2px 4px $black50;
+            z-index: 1;
+            transition: 1s;
+            opacity: 0;
+            @include mq (1420px) {
+                margin: 24px 0 112px 21%;
+            }
+            @include mq (960px) {
+                margin: 8px auto 40px;
+            }
+            &:hover {
+                color: $white;
+                &::before {
+                    transform-origin: 0% 50%;
+                    transform: scaleX(1);
+                }
+                &::after {
+                    background: $blue-grade;
+                    border: solid 2px $white;
+                }
+                & > .arrow--usual {
+                    display: none;
+                }
+                & > .arrow--hover {
+                    display: inline;
+                }
+            }
+            &::before {
+                content: "";
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: -1;
+                background: $blue-grade;
+                transform-origin: 100% 50%;
+                transform: scaleX(0);
+                transition: transform ease .6s;
+            }
+            &::after {
+                content: "";
+                display: inline-block;
+                width: 32px;
+                height: 32px;
+                background: $bg-grade;
+                border-radius: 50%;
+                border: solid 2px $blue;
+                margin-left: 16px;
+            }
+            & > img {
+                position: absolute;
+                top: 39%;
+                right: 30px;
+            }
+        }
+        & > .sh-person {
+            position: absolute;
+            bottom: 0;
+            right: 1%;
+            width: 30%;
+            opacity: 0;
+            @include mq (960px) {
+                display: none;
+            }
+        }
+    }
+}
+
+.arrow--hover {
+    display: none;
+}
+
+.sh-person--inview {
+    animation: personIn 3s forwards;
+
+    @keyframes personIn {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: .8;
+        }
+    }
+}
+
+.entry-btn--inview {
+    animation: btnSlidein 1.8s forwards;
+      
+    @keyframes btnSlidein {
+        0% {
+          transform: translateY(50px);
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+    }
+}
+
+#main-section #top a.entry-btn--anime {
+    color: $white;
+    &::before {
+        transform-origin: 0% 50%;
+        transform: scaleX(1);
+    }
+    &::after {
+        background: $blue-grade;
+        border: solid 2px $white;
+    }
+    & > .arrow--usual {
+        display: none;
+    }
+    & > .arrow--hover {
+        display: inline;
+    }
+}
+
+.top-container {
+    display: flex;
+    width: 100%;
+    position: relative;
+    @include mq (960px) {
+        flex-direction: column;
+    }
+}
+
+.top-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 128px 24px 40px;
+    font-size: 4rem;
+    font-weight: 500;
+    color: $white;
+    letter-spacing: .1em;
+    opacity: 0;
+    line-height: 1.3;
+    filter: drop-shadow(5px 5px 3px rgba(79, 120, 255, 0.6));
+    @include mq (1200px) {
+        font-size: 3rem;
+    }
+    @include mq (640px) {
+        font-size: 2.75rem;
+    }
+    @include mq (385px) {
+        font-size: 2.5rem;
+        padding: 96px 16px 40px;
+    }
+    &__main {
+        &:last-of-type {
+            &:last-of-type {
+                font-size: 3.5rem;
+                text-align: left;
+                margin-top: 24px;
+                @include mq (1200px) {
+                    font-size: 3rem;
+                }
+                @include mq (640px) {
+                    font-size: 2.75rem;
+                }
+                @include mq (480px) {
+                    font-size: 2.5rem;
+                    line-height: 1.4;
+                }
+                @include mq (385px) {
+                    font-size: 2rem;
+                }
+            }
+        }
+        &--strong {
+            background-color: #0081CC;
+            color: $white;
+            padding: 0 8px 0 16px;
+            margin: 0 4px;
+            font-weight: 800;
+            letter-spacing: .2em;
+            &:first-of-type {
+                border-top-left-radius: 3px;
+                border-top-right-radius: 3px;
+            }
+            &:last-of-type {
+                border-bottom-left-radius: 3px;
+                border-bottom-right-radius: 3px;
+            }
+        }
+        &--normal {
+            margin-left: 20px;
+        }
+        &--num {
+            margin-left: 26px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 4rem;
+            @include mq (1200px) {
+                font-size: 3.5rem;
+            }
+            @include mq (640px) {
+                font-size: 3rem;
+            }
+            @include mq (385px) {
+                font-size: 2.5rem;
+            }
+        }
+    }
+    &__sub {
+        font-size: 3.25rem;
+        text-align: left;
+        line-height: 1.2;
+        @include mq (1200px) {
+            font-size: 2.75rem;
+            line-height: 1.1;
+        }
+        @include mq (640px) {
+            font-size: 2rem;
+        }
+        @include mq (480px) {
+            font-size: 1.75rem;
+        }
+        @include mq (430px) {
+            font-size: 1.5rem;
+        }
+        @include mq (390px) {
+            font-size: .5em;
+            letter-spacing: .1em;
+        }
+        &--kana {
+            font-size: 1.25rem;
+            margin: 16px 0 0 68%;
+            letter-spacing: .2em;
+            font-weight: 700;
+            filter: drop-shadow(5px 5px 5px rgba(42, 11, 155, 0.6));
+            @include mq (1200px) {
+                font-size: 1.125rem;
+                margin: 16px 0 0 67%;
+            }
+            @include mq (640px) {
+                font-size: 1rem;
+                letter-spacing: .1em;
+            }
+            @include mq (480px) {
+                letter-spacing: .1em;
+                font-size: 0.875rem;
+            }
+            @include mq (460px) {
+                font-size: .5em;
+                letter-spacing: .1em;
+            }
+        }
+        &--en {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 3.5rem;
+            @include mq (1200px) {
+                font-size: 3.125rem;
+            }
+            @include mq (640px) {
+                font-size: 2.25rem;
+            }
+            @include mq (460px) {
+                font-size: 2rem;
+            }
+            @include mq (430px) {
+                font-size: 1.75rem;
+            }
+            @include mq (390px) {
+                font-size: 1.5rem;
+            }
+        }
+        &--aux {
+            font-size: .8em;
+        }
+    }
+}
+
+.top-title--inview {
+    animation: titleSlidein 2s forwards;
+      
+    @keyframes titleSlidein {
+        0% {
+          transform: translateY(100px);
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+    }
+}
+
+.top-info {
+    background: linear-gradient(to bottom, #EEE9FF, #CEDCFF 25%, rgba(255, 255, 255, 0) 80%);
+    margin:  46px 0;
+    padding: 40px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 55%;
+    z-index: 3;
+    opacity: 0;
+    @include mq (1200px) {
+        background: linear-gradient(to bottom, #EEE9FF, #CEDCFF 40%, rgba(255, 255, 255, 0) 100%);
+    }
+    @include mq (960px) {
+        width: 100%;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, .4), #CEDCFF 50%, rgba(255, 255, 255, .4) 100%);
+        margin: 24px 0 40px;
+    }
+    @include mq (400px) {
+        margin: 0 0 40px;
+        align-items: flex-start;
+    }
+    &::before {
+        content: "";
+        width: 30%;;
+        height: 2px;
+        display: inline-block;
+        background-color: $blue;
+        position: absolute;
+        top: 13%;
+        @include mq (1200px) {
+            top: 16%;
+        }
+        @include mq (960px) {
+            content: "";
+            width: 50%;;
+            height: 2px;
+            display: inline-block;
+            background-color: $blue;
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            @include mq (730px) {
+                width: 70%;
+            }  
+            @include mq (640px) {
+                width: 70%;
+                top: 58%;
+            } 
+            @include mq (500px) {
+                width: 80%;
+            }  
+            @include mq (400px) {
+                display: none;
+            }
+        }
+
+    }
+    &::after {
+        content: "";
+        width: 30%;;
+        height: 2px;
+        display: inline-block;
+        background-color: $blue;
+        position: absolute;
+        bottom: 32%;
+        @include mq (1200px) {
+            bottom: 23%;
+        }
+        @include mq (1072px) {
+            bottom: 18%;
+        }
+        @include mq (960px) {
+            content: "";
+            width: 50%;;
+            height: 2px;
+            display: inline-block;
+            background-color: $blue;
+            position: absolute;
+            bottom: 8%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            @include mq (730px) {
+                width: 70%;
+            }  
+            @include mq (500px) {
+                width: 80%;
+            } 
+            @include mq (400px) {
+                display: none;
+            }
+        }
+
+    }
+    &__list {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        color: $blue;
+        font-size: 1.125rem;
+        font-weight: 700;
+        filter: drop-shadow(1px 0px 1px rgb(255, 255, 255, .4));
+        position: relative;
+
+        @include mq (360px) {
+            padding: 16px;
+        }
+        &:first-of-type {
+            padding: 24px 24px 4px 24px; 
+        }
+        &:last-of-type {
+            padding: 4px 24px 8px 24px; 
+        }
+        &__container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            &__title {
+                position: relative;
+                &::before {
+                    @include listmark;
+                    margin-right: 8px;
+                }
+            }
+            &__detail {
+                margin: 16px 16px 16px 24px;
+                font-size: 1.125rem;
+                filter: drop-shadow(1px 0px rgb(0, 0, 0, .5));
+                @include mq (1050px) {
+                    font-size: 1rem;
+                }
+                @include mq (960px) {
+                    font-size: 1.125rem;
+                }
+                @include mq (400px) {
+                    font-size: 1rem;
+                }
+                & > div {
+                    margin-top: 8px;
+                    font-size: 1rem;
+                    font-weight: 600;
+
+                }
+                & > p:nth-of-type(2) {
+                    font-size: 1rem;
+                    font-weight: 600;
+                    margin-top: 8px;
+                } 
+            }
+        }
+    }
+}
+
+.top-info--inview {
+    animation: titleClear 5s forwards;
+      
+    @keyframes titleClear {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+    }
+}
+
+.first-title::after {
+    @include mq (400px) {
+        content: "";
+        display: inline-block;
+        width: 72px;
+        height: .1em;
+        background-color: $blue;
+        position: absolute;
+        bottom: -2px;
+        right: 0;
+    }
+
+}
+
+.second-title::after {
+    @include mq (400px) {
+            content: "";
+    display: inline-block;
+    width: 36px;
+    height: .1em;
+    background-color: $blue;
+    position: absolute;
+    bottom: -2px;
+    right: 0;
+    }
+
+}
+
+#announce {
+    & > .wrapper {
+        overflow: hidden;
+        @include wp;
+        position: relative;
+        padding: 96px 80px;
+        @include mq (650px) {
+            padding: 96px 64px;
+        }
+        @include mq (500px) {
+            padding: 96px 32px 96px 64px;
+        }
+        @include mq (400px) {
+            padding: 96px 24px 96px 64px;
+        }
+        & > .announce-title {
+            display: flex;
+            align-items: baseline;
+            @include mq (650px) {
+                flex-direction: column;
+            }
+                
+            & > span {
+                font-size: 0.875rem;
+                filter: drop-shadow(1px 0px 1px rgb(0, 0, 0, .3));
+                @include mq (650px) {
+                    margin-bottom: 8px;
+                }
+                @include mq (400px) {
+                    font-size: 0.75rem;
+                }
+            }
+            & > img {
+                width: 140px;
+                margin-left: 8px;
+                filter: drop-shadow(2px 2px 2px rgb(0, 0, 0, .5));
+            }
+            &__sub {
+                background: $blue-grade;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                filter: drop-shadow(2px 2px 2px rgb(0, 0, 0, .3));
+                font-size: 1.25rem;
+                padding: 32px 0;
+                & > p {
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
+        }
+        & > .announce-detail {
+            margin-left: 32px;
+            line-height: 1.8;
+            text-align: justify;
+            @include mq (450px) {
+                font-size: 1rem;
+                line-height: 1.6;
+                width: 95%;
+                margin-left: 0;
+            }
+        }
+    }
+}
+
+.announce-line__width--inview {
+    @include linew(.1em, 144px, 8px, unset, "announcewAmine", 100%);
+    @include mq (1050px) {
+        @include linew(.1em, 144px, 8px, unset, "announcewAmine", 95%);
+    }
+    @include mq (650px) {
+        @include linew(.1em, 170px, 8px, unset, "announcewAmine", 95%);
+    }
+    @include mq (340px) {
+        @include linew(.1em, 190px, 8px, unset, "announcewAmine", 95%);
+    }
+}
+
+.announce-line__height--inview {
+    @include lineh(80%, 80px, 40px, unset, 80%, "announcehAnime");
+    @include mq (550px) {
+        @include lineh(85%, 80px, 40px, unset, 85%, "announcehAnime");
+    }
+}
+
+.announce-title__sub__text__kana {
+    font-size: 0.625rem;
+    margin: 6px 0 0 152px;
+    line-height: 1.3;
+}
+
+#info {
+    position: relative;
+    & > .info-bg {
+        min-height: 300px;
+        overflow: hidden;
+        @include bg(url(../img/info-bg.jpg)); 
+        & > h3 {
+            @include h3;
+        }
+    }
+    & > .wrapper {
+        @include wp;
+        & > dl {
+            padding: 240px 120px 240px 80px;
+            @include mq (700px) {
+                padding: 240px 80px;
+            }
+            @include mq (500px) {
+                padding: 80px 32px;
+            }
+            @include mq (400px) {
+                padding: 80px 16px;
+            }
+            & > div {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: stretch;
+                justify-content: center;
+                box-shadow: 4px 4px 10px $black30;
+                @include mq (780px) {
+                    flex-direction: column;
+                }
+                @include mq (360px) {
+                    font-size: 0.875rem;
+                }
+                & > dt {
+                    width: 25%;
+                    background: $blue-grade;
+                    color: $white;
+                    text-align: center;
+                    border-bottom: 1px solid $white;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 8px 16px;
+                    @include mq (780px) {
+                        width: 100%;
+                    }
+                }
+                & > dd {
+                    width: 75%;
+                    background-color: $white;
+                    border-bottom: 1px solid $blue;
+                    padding: 16px 32px;
+                    font-weight: 500;
+                    @include mq (780px) {
+                        width: 100%;
+                        text-align: center;
+                        padding: 16px;
+                    }
+                    @include mq (400px) {
+                        padding: 16px;
+                    }
+                    // & > .info-detail__list1 {
+                    //     & > p:last-of-type {
+                    //         font-size: 0.875rem;
+                    //         line-height: 1.8;
+                    //         @include mq (360px) {
+                    //             font-size: 0.75rem;
+                    //         }
+                    //     }
+                    // }
+                    & > .info-detail__list__sub {
+                        font-size: 0.875rem;
+                        margin-top: 8px;
+                        & > p:last-of-type {
+                            display: flex;
+                            @include mq (780px) {
+                                justify-content: center;
+                                align-items: center;
+                                flex-direction: column;
+                            }
+                        }
+                        @include mq (360px) {
+                            font-size: 0.75rem;
+                        }
+                    }
+                    & > .info-detail__list__sub--pink {
+                        margin-top: 8px;
+                        color: $pink;
+                        line-height: 2;
+                        @include mq (780px) {
+                            padding: 0 24px;
+                        }
+                        @include mq (540px) {
+                            padding: 0;
+                        }
+                        & > div {
+                            & > p:last-of-type {
+                            font-size: 0.875rem;
+                            font-weight: 400;
+                            padding-left: 1em;
+                            }
+                        }
+                        @include mq (780px) {
+                            text-align: left;
+                        }
+                        @include mq (420px) {
+                            font-size: 0.875rem;
+                        }
+                    }
+                    & >.info-detail__list__map {
+                        font-size: 1rem;
+                        @include mq (360px) {
+                            font-size: 0.875rem;
+                        }
+                    }
+                    & > p:nth-of-type(2) {
+                        font-size: 0.875rem;
+                        margin-top: 8px;
+                    }
+                    & > iframe {
+                        width: 90%;
+                        height: 240px;
+                        box-shadow: 4px 4px 10px rgba(0, 0, 0, .4);
+                        border: none;
+                        margin: 24px;
+                        @include mq (600px) {
+                            margin: 16px auto;
+                        }
+                        @include mq (400px) {
+                            margin: 16px auto 8px;
+                        }
+                    }
+                    & > a {
+                        color: $pink;
+                        margin-right: .1em;
+                    }
+                }
+                &:nth-of-type(6) {
+                    & > dd {
+                        & > .info-detail__list1 {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: flex-start;
+                            @include mq (780px) {
+                                align-items: center;
+                            }
+                            & .banklogo {
+                                width: 20%;
+                                @include mq (780px) {
+                                    width: 22vw;
+                                }
+                                @include mq (500px) {
+                                    width: 25vw;
+                                }
+                            }
+                            & .sokenlogo {
+                                width: 45%;
+                                @include mq (780px) {
+                                    width: 45vw;
+                                }
+                                @include mq (500px) {
+                                    width: 55%;
+                                }
+                                @include mq (420px) {
+                                    width: 65%;
+                                }
+                            }
+                            & > p:first-of-type {
+                                margin-bottom: 8px;
+                                font-size: 1rem;
+                                @include mq (360px) {
+                                    font-size: 0.875rem;
+                                }
+                            }
+                        }
+                        & > p:last-of-type {
+                            font-size: 1rem;
+                            @include mq (360px) {
+                                font-size: 0.875rem;
+                            }
+                        }
+                    }
+                }
+                &:nth-of-type(7) {
+                    & > dd { 
+                        & > p {
+                            @include mq (780px) {
+                                margin-top: 24px;
+                                text-align: left;
+                                padding: 0 16px;
+                            }
+                        }
+                    }
+                }
+                &:last-of-type {
+                    & > dt {
+                        border-bottom: none;
+                    }
+                    & > dd {
+                        border-bottom: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.info-line__width--inview {
+    @include linew(.1em, 144px, 0, unset, "infowAnime", 100%);
+    @include mq (1050px) {
+        @include linew(.1em, 144px, 24px, unset, "infowAnime", 97%);
+    }
+    @include mq (960px) {
+        @include linew(.1em, 144px, 32px, unset, "infowAnime", 95%);
+    }
+    @include mq (780px) {
+        @include linew(.1em, 144px, 32px, unset, "infowAnime", 93%);
+    }
+    @include mq (500px) {
+        display: none;
+    }
+}  
+.info-line__height--inview {
+    @include lineh(85%, 80px, unset, 40px, 85%, "infohAnime");
+    @include mq (500px) {
+        display: none;
+    }
+}  
+
+#speech {
+    position: relative;
+    background-color: $bg;
+    & > .speech-bg {
+        width: 100%;
+        min-height: 300px;
+        overflow: hidden;
+        @include bg(url(../img/speech-bg.jpg)); 
+        & > h3 {
+            @include h3;
+        }
+    }
+    & > .wrapper {
+        @include wp;
+        padding: 80px 0;
+        overflow: hidden;
+        & > .speech-container {
+            margin: 0 32px;
+            @include mq (400px) {
+                margin: 0 16px;
+            }
+            & > h4 {
+                background: $blue-grade;
+                border-radius: 5px;
+                overflow: hidden;
+                position: absolute;
+                top: 96px;
+                left: 72px;
+                box-shadow: 3px 3px 10px $black50;
+                border: solid 1px $white;
+                @include mq (700px) {
+                    width: 80%;
+                }
+                @include mq (520px) {
+                    position: static;
+                    width: 100%;
+                    margin-top: 56px;
+                }
+                & > div {
+                    display: flex;
+                    align-items: center;
+                    &::before {
+                        @include listmark;
+                        margin-left: 24px;
+                        margin-right: 0;
+                        background-color: $white;
+                    }
+                    @include mq (700px) {
+                        display: flex;
+                    }
+                    & > div {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 16px 24px; 
+                        color: $white;   
+                        font-size: 1.25rem;
+                        font-weight: 600;
+                        @include mq (700px) {
+                            flex-direction: column;
+                            align-items: flex-start;
+                        }
+                        @include mq (400px) {
+                            font-size: 1rem;
+                        }
+                        & > p:nth-of-type(2) {
+                            margin-left: 8px;
+                            @include mq (700px) {
+                                margin-left: 0;
+                            }
+                        }
+                    }
+                }
+            }
+            & > .speech-contents {
+                padding: 180px 0 56px;
+                @include mq (520px) {
+                    padding: 56px 0;
+                }
+                & > .speech-contents__person {
+                    position: relative;
+                    margin-right: 32px;
+                    @include mq (850px) {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        margin: 32px 0 0 0;
+                    }
+                    @include mq (520px) {
+                        margin: 0;
+                    }
+                    & > img {
+                        position: absolute;
+                        right: 0;
+                        top: 40px;
+                        width: 20%;
+                        box-shadow: -24px 24px 0 $blue;
+                        border-radius: 5px;
+                        border: 1px solid $blue;
+                        @include mq (850px) {
+                            position: static;
+                            width: 25%;
+                            margin-left: 32px;
+                            text-align: center;
+                        }
+                        @include mq (520px) {
+                            width: 50%;
+                        }
+                    }
+                    & > .speech-contents__person__detail {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        width: 60%;
+                        margin: 32px 0 32px 120px;
+                        @include mq (850px) {
+                            flex-direction: column;
+                            align-items: center;
+                            width: 80%;
+                            margin-left: 32px;
+                        }
+                        @include mq (520px) {
+                            width: 100%;
+                            margin-left: 0;
+                            margin-bottom: 16px;
+                        }
+                        & > p:first-of-type {
+                            background: $bg-grade;
+                            border-image: $blue-grade 1;
+                            border-top: solid 2px;
+                            border-bottom: solid 2px;
+                            color: $blue;
+                            letter-spacing: .1em;
+                            font-size: 1.125rem;
+                            font-weight: 600;
+                            text-align: center;
+                            position: relative;
+                            width: 100%;
+                            padding: 4px;
+                            box-shadow: 3px 3px 3px $black30;
+                            & > span {
+                                position: relative;
+                                &::before {
+                                    @include titleline(50%, -25px, unset);
+                                }
+                                &::after {
+                                    @include titleline(50%, unset, -22px);
+                                }
+                            }
+                            @include mq (850px) {
+                                margin: 32px 0 0;
+                            }
+                            @include mq (400px) {
+                                font-size: 1rem;
+                            }
+                        }
+                        & > .speech-contents__person__detail__container {
+                            margin-top: 24px;
+                            background-color: $blue-bg;
+                            line-height: 1.6;
+                            padding: 40px 56px;
+                            border-radius: 3px;
+                            box-shadow: 5px 5px 5px $black30;
+                            text-align: justify;
+                            color: $black;
+                            font-weight: 500;
+                            border: solid 1px $blue;
+                            width: 100%;
+                            @include mq (850px) {
+                                padding: 40px 32px; 
+                            }
+                            @include mq (400px) {
+                                font-size: 0.875rem;
+                                padding: 40px 24px;
+                            }
+                            & > .speech-contents__person__detail__container__career {
+                                display: flex;
+                                & > .speech-contents__person__detail__container__career__year {
+                                    width: 25%;
+                                    @include mq(450px) {
+                                        width: 40%;
+                                    }
+                                }
+                                & > .speech-contents__person__detail__container__career__text {
+                                    width: 100%;
+                                    & > span {
+                                        margin-right: 16px;
+                                    }
+                                }
+                                &:nth-of-type(3) {
+                                    & > .speech-contents__person__detail__container__career__text {
+                                        display: flex;
+                                    }
+                                }
+                                &:nth-of-type(4) {
+                                    & > .speech-contents__person__detail__container__career__text {
+                                        & > .speech-contents__person__detail__container__career__text2 {
+                                            display: flex;
+                                            & > span {
+                                                margin-right: 16px;
+                                            }
+                                        }
+                                    }
+                                }
+                                &:nth-of-type(5) {
+                                    & > .speech-contents__person__detail__container__career__text {
+                                        & > .speech-contents__person__detail__container__career__text2 {
+                                            display: flex;
+                                            & > span {
+                                                margin-right: 16px;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                & > .speech-contents__topic {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    margin-left: 120px;
+                    width: 60%;
+                    padding-right: 16px;
+                    margin-top: 56px;
+                    @include mq (850px) {
+                        margin-left: 16px;
+                        align-items: center;
+                        width: 100%;
+                        padding-right: 0;
+                        margin-top: 16px;
+                    }
+                    @include mq (520px) {
+                        margin-left: 0;
+                    }
+                    & > p:first-of-type {
+                        background: $bg-grade;
+                        border-image: $blue-grade 1;
+                        border-top: solid 2px;
+                        border-bottom: solid 2px;
+                        color: $blue;
+                        letter-spacing: .1em;
+                        font-size: 1.125rem;
+                        font-weight: 600;
+                        text-align: center;
+                        width: 100%;
+                        padding: 4px;
+                        box-shadow: 3px 3px 3px $black30;
+                        & > span {
+                            position: relative;
+                            &::before {
+                                @include titleline(50%, -25px, unset);
+                            }
+                            &::after {
+                                @include titleline(50%, unset, unset);
+                                @include mq (470px) {
+                                    right: -22px;
+                                }
+                            }
+                        }
+                        @include mq (850px) {
+                            margin: 24px 0 0;
+                            width: 80%;
+                        }
+                        @include mq (520px) {
+                            width: 100%;
+                        }
+                        @include mq (400px) {
+                            font-size: 1rem;
+                        }
+                    }
+                    & > .speech-contents__topic__detail {
+                        background-color: $blue-bg;
+                        line-height: 1.6;
+                        padding: 32px 40px;
+                        border-radius: 3px;
+                        margin-top: 24px;
+                        font-weight: 500;
+                        color: $black;
+                        box-shadow: 5px 5px 5px $black30;
+                        text-align: justify;
+                        border: solid 1px $blue;
+                        width: 100%;
+                        @include mq (850px) {
+                            width: 80%;
+                        }
+                        @include mq (520px) {
+                            width: 100%;
+                            padding: 32px;
+                        }
+                        @include mq (400px) {
+                            font-size: 0.875rem;
+                        }
+                    }
+                }
+            }
+        }    
+        & > .speech-container2 {
+            position: relative;
+            margin: 0 32px; 
+            @include mq (400px) {
+                margin: 0 16px;
+            }           
+            & > h4 {
+                background: $blue-grade;
+                border-radius: 5px;
+                overflow: hidden;
+                position: absolute;
+                top: 96px;
+                right: 72px;
+                box-shadow: 3px 3px 10px $black30;
+                border: solid 1px $white;
+                @include mq (520px) {
+                    width: 100%;
+                    position: static;
+                    margin-top: 56px;
+                }
+                & > div {
+                    display: flex;
+                    align-items: center;
+                    &::before {
+                        @include listmark;
+                        margin-left: 24px;
+                        margin-right: 0;
+                        background-color: $white;
+                        @include mq (375px) {
+                            width: 20px;
+                            height: 18px;
+                        }
+                        @include mq (330px) {
+                            width: 18px;
+                            height: 16px;
+                        }
+                    }
+                    @include mq (700px) {
+                        display: flex;
+                    }
+                    & > div {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 16px 24px;
+                        color: $white;
+                        font-size: 1.25rem;
+                        font-weight: 600;
+                        @include mq (700px) {
+                            flex-direction: column;
+                            align-items: flex-start;
+                        }
+                        @include mq (400px) {
+                            font-size: 1rem;
+                        }
+                        & > p:nth-of-type(2) {
+                            margin-left: 8px;
+                            @include mq (700px) {
+                                margin-left: 0;
+                            }
+                        }
+                    }
+                }
+            }
+            & > .speech-contents {
+                padding: 220px 0 88px;
+                box-sizing: border-box;
+                @include mq (520px) {
+                    padding: 56px 0 80px;
+                  }
+                & > .speech-contents__person2 {
+                    position: relative;
+                    @include mq (850px) {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                        margin: 32px 0 0;
+                        width: 100%;
+                    }
+                    @include mq (520px) {
+                        margin: 0;
+                    }
+                    & > img {
+                        width: 20%;
+                        box-shadow: -24px 24px 0 $blue;
+                        border-radius: 5px;
+                        border: 1px solid $blue;
+                        position: absolute;
+                        top: 40px;
+                        left: 3%;
+                        @include mq (850px) {
+                            position: static;
+                            width: 25%;
+                            margin-right: 32px;
+                            align-self: center;
+                        }
+                        @include mq (520px) {
+                            width: 50%;
+                            left: unset;
+                            margin-right: 0;
+                            margin-left: 32px;
+                        }
+                    }
+                    & > .speech-contents__person__detail {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                        width: 60%;
+                        margin: 56px 0 32px 260px;
+                        @include mq (850px) {
+                            flex-direction: column;
+                            align-items: center;
+                            width: 80%;
+                            margin-left: 32px;
+                        }
+                        @include mq (520px) {
+                            margin-left: 0;
+                            width: 100%;
+                        }
+                        & > p {
+                            background: $bg-grade;
+                            border-image: $blue-grade 1;
+                            border-top: solid 2px;
+                            border-bottom: solid 2px;
+                            color: $blue;
+                            letter-spacing: .1em;
+                            font-size: 1.125rem;
+                            font-weight: 600;
+                            text-align: center;
+                            position: relative;
+                            width: 100%;
+                            padding: 4px;
+                            box-shadow: 3px 3px 3px $black30;
+                            & > span {
+                                position: relative;
+                                &::before {
+                                    @include titleline(50%, -25px, unset);
+                                }
+                                &::after {
+                                    @include titleline(50%, unset, -22px);
+                                }
+                            }
+                            @include mq (850px) {
+                                margin: 24px 0 0;
+                            }
+                        }
+                        & > .speech-contents__person__detail__container {
+                            margin-top: 24px;
+                            background-color: $blue-bg;
+                            line-height: 1.6;
+                            padding: 40px;
+                            border-radius: 3px;
+                            box-shadow: 5px 5px 5px $black30;
+                            font-weight: 500;
+                            color: $black;
+                            border: solid 1px $blue;
+                            @include mq (850px) {
+                                padding: 40px 32px;
+                            }
+                            @include mq (400px) {
+                                font-size: 0.875rem;
+                                padding: 40px 24px;
+                            }
+                            & > .speech-contents__person__detail__container__career {
+                                display: flex;
+                                & > .speech-contents__person__detail__container__career__text {
+                                    display: flex;
+                                    @include mq (560px) {
+                                        flex-direction: column;
+                                    }
+                                    & > span {
+                                        margin-right: 16px;
+                                    }
+                                }
+                                & > .speech-contents__person__detail__container__career__year {
+                                    width: 25%;
+                                    @include mq (450px) {
+                                        width: 40%;
+                                    }
+                                }
+                                & > .speech-contents__person__detail__container__career__text {
+                                    width: 100%;
+                                    & > p:first-of-type {
+                                        margin-right: 16px;
+                                    }
+                                }
+                                &:nth-of-type(4) {
+                                    display: flex;
+                                    & > div {
+                                        display: flex;
+                                        flex-direction: column;
+                                        & > div {
+                                            &> span:first-of-type {
+                                                margin-right: 12px;
+                                            }
+                                            @include mq (450px) {
+                                                display: flex;
+                                                flex-direction: column;
+                                            }
+                                        }
+                                    }
+                                }
+                                &:nth-of-type(5) {
+                                    display: flex;
+                                    & > div {
+                                        display: flex;
+                                        flex-direction: column;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                & > .speech-contents__topic {
+                    display: flex;
+                    flex-direction: column;
+                    width: 60%;
+                    margin-left: 260px;
+                    margin-top: 56px;
+                    @include mq (850px) {
+                        margin: 32px 0 0 32px;
+                        align-items: flex-start;
+                        width: 100%;
+                        margin-top: 16px;
+                    }
+                    @include mq (520px) {
+                        margin: 0;
+                        width: 100%;
+                    }
+                    & > p:first-of-type {
+                        background: $bg-grade;
+                        border-image: $blue-grade 1;
+                        border-top: solid 2px;
+                        border-bottom: solid 2px;
+                        color: $blue;
+                        letter-spacing: .1em;
+                        font-size: 1.125rem;
+                        font-weight: 600;
+                        text-align: center;
+                        width: 100%;
+                        padding: 4px;
+                        box-shadow: 3px 3px 3px $black30;
+                        & > span {
+                            position: relative;
+                            &::before {
+                                @include titleline(50%, -25px, unset);
+                            }
+                            &::after {
+                                @include titleline(50%, unset, unset);
+                                @include mq (470px) {
+                                    right: -22px;
+                                }
+                            }
+                        }
+                        @include mq (850px) {
+                            margin: 24px 0 0;
+                            width: 80%;
+                        }
+                        @include mq (520px) {
+                            width: 100%;
+                        }
+                    }
+                    & > .speech-contents__topic__detail {
+                        background-color: $blue-bg;
+                        color: $black;
+                        line-height: 1.6;
+                        padding: 32px 40px;
+                        border-radius: 3px;
+                        margin-top: 24px;
+                        font-weight: 500;
+                        box-shadow: 5px 5px 5px $black30;
+                        text-align: justify;
+                        border: solid 1px $blue;
+                        @include mq (850px) {
+                            width: 80%;
+                        }
+                        @include mq (520px) {
+                            width: 100%;
+                            padding: 32px;
+                        }
+                        @include mq (400px) {
+                            font-size: 0.875rem;
+                        }
+                        & > p:first-of-type {
+                            font-size: 1.25rem;
+                            font-weight: 600;
+                            margin-bottom: 24px;
+                            color: $blue;
+                            @include mq (592px) {
+                                font-size: 1.125rem;
+                            }
+                            @include mq (435px) {
+                                letter-spacing: -0.05em;
+                            }
+                            @include mq (420px) {
+                                font-size: 1rem;
+                            }
+                        }
+                    }
+                }
+            }    
+        }
+    }
+}
+
+.speech-line {
+    display: none;
+    @include mq (500px) {
+        width: 95%;
+        height: 2px;
+        background-color: $blue;
+        display: block;
+        margin: 0 auto;
+    }
+}
+
+.speech-line__width1--inview {
+    @include linew(.1em, 180px, 10px, unset, "speechwAnime1", 100%);
+    @include mq(1050px) {
+        @include linew(.1em, 180px, 10px, unset, "speechwAnime1", 95%);
+    }
+    @include mq(700px) {
+        @include linew(.1em, 210px, 10px, unset, "speechwAnime1", 95%);
+    }
+    @include mq (520px) {
+        display: none;
+    }
+}  
+.speech-line__height1--inview {
+    @include lineh(41%, 80px, 40px, unset, 41%, "speechAnime1");
+    @include mq (850px) {
+        @include lineh(43%, 80px, 40px, unset, 43%, "speechAnime1");
+    }
+    @include mq (630px) {
+        @include lineh(40%, 80px, 40px, unset, 40%, "speechAnime1");
+    }
+    @include mq (520px) {
+        display: none;
+    }
+}  
+
+.speech-line__width2--inview {
+    @include linew(.1em, 180px, 0, unset, "speechwAnime2", 100%);
+    @include mq(700px) {
+        top: 210px;
+    }
+    @include mq (520px) {
+        display: none;
+    }
+}  
+.speech-line__height2--inview {
+    @include lineh(90%, 80px, unset, 40px, 90%, "speechhAnime2");
+    @include mq (850px) {
+        @include lineh(92%, 80px, unset, 40px, 92%, "speechhAnime2");
+    }
+    @include mq (520px) {
+        display: none;
+    }
+}  
+
+#entry {
+    position: relative;
+    & > .entry-bg {
+        min-height: 300px;
+        overflow: hidden;
+        @include bg(url(../img/entry-bg.jpg));
+        & > h3 {
+            @include h3;
+        }
+    }
+    & > .wrapper {
+        position: relative;
+        @include wp;
+        margin: 160px auto;
+        border-radius: 3px;
+        & > .entry-container__bg {
+            min-height: 1500px;
+            overflow: hidden;
+            @include bg(url(../img/entry-container-bg.png));
+            @include mq (850px) {
+                min-height: 1600px;
+            }
+            @include mq (480px) {
+                min-height: 1700px;
+            }
+            & > .entry-container {
+                margin: 56px 0;
+                position: absolute;
+                z-index: 5;
+                width: 100%;
+                & > .entry-title {
+                    background: $bg-grade;
+                    overflow: hidden;
+                    box-shadow: 0 5px 5px rgba(0, 0, 0, .4);
+                    & > span {
+                        border-top: solid 1px;
+                        border-bottom: solid 1px;
+                        border-image: $blue-grade 1;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center; 
+                        padding: 12px 24px;
+                        background: $blue-grade;
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                        font-size: 1.25rem;
+                        font-weight: 900;
+                        &::before {
+                            @include listmark;
+                            margin-right: 16px;
+                        }
+                    }
+                }
+                & > .entry-contents__container {
+                    border: 1px solid $blue;
+                    background: rgba(255, 255, 255, .7);
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    width: 90%;
+                    margin: 56px auto;
+                    padding: 40px 24px;
+                    box-shadow: 5px 5px 10px rgba(0, 0, 0, .4);
+                    @include mq (400px) {
+                        padding: 40px 16px;
+                    }
+                    & > .entry-contents__container__detail {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        &:first-of-type {
+                            & > p {
+                                margin: 24px 24%;
+                                @include mq (900px) {
+                                    margin: 24px 16%;
+                                }
+                                @include mq (640px){
+                                    margin: 24px 8%;
+                                }
+                                @include mq (560px) {
+                                    margin: 24px;
+                                }
+                                @include mq (370px) {
+                                    margin: 24px 0;
+                                }
+                            }
+                        }
+                        & > p {
+                            color: $blue;
+                            font-weight: 500;
+                            margin: 24px 48px;
+                            @include mq (560px) {
+                                margin: 24px;
+                            }
+                            @include mq (370px) {
+                                margin: 24px 0;
+                            }
+                        }
+                        & > a {
+                            text-decoration: none;
+                            font-size: 1.25rem;
+                            padding: 16px 24px;
+                            background: $blue-grade;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-around;
+                            position: relative;
+                            border-radius: 3px;
+                            border: 2px solid $bg;
+                            color: $white;
+                            font-weight: 800;
+                            box-shadow: 2px 2px 4px $black50;
+                            z-index: 1;
+                            transition: 1s;
+                            margin: 32px 0 48px;
+                            @include mq (460px) {
+                                font-size: 1rem;
+                            }
+                            @include mq (370px) {
+                                font-size: 0.875rem;
+                            }
+                            &:hover {
+                                color: $blue;
+                                border: 2px solid $blue;
+                                &::before {
+                                    transform-origin: 0% 50%;
+                                    transform: scaleX(1);
+                                }
+                                &::after {
+                                    background: $bg-grade;
+                                    border: solid 2px $blue;
+                                }
+                                & > .arrow--usual {
+                                    display: none;
+                                }
+                                & > .arrow--hover {
+                                    display: inline;
+                                }
+                            }
+                            &::before {
+                                content: "";
+                                width: 100%;
+                                height: 100%;
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                z-index: -1;
+                                background: $bg-grade;
+                                transform-origin: 100% 50%;
+                                transform: scaleX(0);
+                                transition: transform ease .6s;
+                            }
+                            &::after {
+                                content: "";
+                                display: inline-block;
+                                width: 32px;
+                                height: 32px;
+                                background: $blue-grade;
+                                border-radius: 50%;
+                                border: solid 2px $white;
+                                margin-left: 16px;
+                            }
+                            & > img {
+                                position: absolute;
+                                top: 38%;
+                                right: 30px;
+                                @include mq (460px) {
+                                    width: 6%;
+                                    right: 28px;
+                                }
+                            }
+                            @include mq (460px) {
+                                &::before {
+                                    content: "";
+                                    width: 100%;
+                                    height: 100%;
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    z-index: -1;
+                                    background: $bg-grade;
+                                    transform-origin: 100% 50%;
+                                    transform: scaleX(0);
+                                    transition: transform ease .6s;
+                                }
+                                &::after {
+                                    content: "";
+                                    display: inline-block;
+                                    width: 24px;
+                                    height: 24px;
+                                    background: $blue-grade;
+                                    border-radius: 50%;
+                                    border: solid 2px $white;
+                                    margin-left: 16px;
+                                }
+                                & > span {
+                                    position: relative;
+                                    &::before {
+                                        content: "";
+                                        display: inline-block;
+                                        width: 12px;
+                                        height: 2px;
+                                        background: $white;
+                                        position: absolute;
+                                        top: -2px;
+                                        left: 21px;
+                                        border-radius: 2px;
+                                    }
+                                    &::after {
+                                        content: "";
+                                        display: inline-block;
+                                        width: 10px;
+                                        height: 9px;
+                                        border-right: solid 2px $white;
+                                        border-bottom: solid 2px $white;
+                                        border-radius: 3px;
+                                        transform: rotate(-45deg);
+                                        position: absolute;
+                                        left: 24px;
+                                        top: -5px;
+                                    }
+                                }
+                            }
+                        }
+                        & > .entry-contents__container__detail__qr {
+                            background-color: $bg;
+                            padding: 16px;
+                            border: solid 1px $blue;
+                            margin-top: 16px;
+                        }
+                        
+                    }
+                    & > .entry-contents__container__line {
+                        width: 90%;
+                        height: 2px;
+                        background-color: $blue;
+                        display: block;
+                        margin-bottom: 32px;
+                    }
+                    &:nth-of-type(2) {
+                        & > .entry-contents__container__detail {
+                            padding: 24px 48px;
+                            color: $blue;
+                            font-weight: 500;
+                            margin-bottom: 24px;
+                            text-align: center;
+                            @include mq (560px) {
+                                padding: 24px;
+                            }
+                            @include mq (370px) {
+                                text-align: left;
+                                padding: 24px 0;
+                            }
+                        }
+                        & > .entry-contents__container__detail__contact {
+                            padding: 16px;
+                            display: flex;
+                            align-items: center;
+                            @include mq (850px) {
+                                flex-direction: column;
+                                align-items: flex-start;
+                            }
+                            & > .entry-contents__container__detail__contact__sec {
+                                padding: 0 32px 0 24px;
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                color: $blue;
+                                @include mq (430px) {
+                                    padding: 0;
+                                }
+                                &:last-of-type {
+                                    & > div {
+                                        @include mq (460px) {
+                                            margin-left: 0;
+                                        }
+                                    }
+                                }
+                                & > .entry-contents__container__detail__contact__sec__title {
+                                    font-size: 1rem;
+                                    font-weight: 800;
+                                    position: relative;
+                                    margin-bottom: 8px;
+                                    &::before {
+                                        @include listmark;
+                                        margin-right: 8px;
+                                    }
+                                    &::after {
+                                        content: "";
+                                        display: inline-block;
+                                        width: 176px;
+                                        height: .1em;
+                                        background-color: $blue;
+                                        position: absolute;
+                                        bottom: -2px;
+                                        right: 0;
+                                    }
+                                }
+                                & > .entry-contents__container__detail__contact__sec__info {
+                                    display: flex;
+                                    flex-direction: column;
+                                    align-items: center;
+                                    margin-left: 24px;
+                                    @include mq (460px) {
+                                        margin-left: 8px;
+                                    }
+                                    & > .entry-contents__container__detail__contact__sec__info__tel {
+                                        font-weight: 900;
+                                        font-size: 2rem;
+                                        margin-top: 24px;
+                                        @include mq (460px) {
+                                            font-size: 1.75rem;
+                                        }
+                                    }
+                                    & > a {
+                                        text-decoration: none;
+                                        font-size: 1rem;
+                                        padding: 10px 24px;
+                                        background: $blue-grade;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: space-around;
+                                        position: relative;
+                                        border-radius: 3px;
+                                        border: 2px solid $bg;
+                                        color: $white;
+                                        font-weight: 700;
+                                        box-shadow: 2px 2px 4px $black50;
+                                        z-index: 1;
+                                        transition: 1s;
+                                        margin-top: 24px;
+                                        @include mq (460px) {
+                                            font-size: 0.875rem;
+                                        }
+                                        &:hover {
+                                            color: $blue;
+                                            border: 2px solid $blue;
+                                            &::before {
+                                                transform-origin: 0% 50%;
+                                                transform: scaleX(1);
+                                            }
+                                            &::after {
+                                                background: $bg-grade;
+                                                border: solid 2px $blue;
+                                            }
+                                            & > .arrow--usual {
+                                                display: none;
+                                            }
+                                            & > .arrow--hover {
+                                                display: inline;
+                                            }
+                                        }
+                                        &::before {
+                                            content: "";
+                                            width: 100%;
+                                            height: 100%;
+                                            position: absolute;
+                                            top: 0;
+                                            left: 0;
+                                            z-index: -1;
+                                            background: $bg-grade;
+                                            transform-origin: 100% 50%;
+                                            transform: scaleX(0);
+                                            transition: transform ease .6s;
+                                        }
+                                        &::after {
+                                            content: "";
+                                            display: inline-block;
+                                            width: 24px;
+                                            height: 24px;
+                                            background: $blue-grade;
+                                            border-radius: 50%;
+                                            border: solid 2px $white;
+                                            margin-left: 16px;
+                                        }
+                                        & > img {
+                                            position: absolute;
+                                            width: 6%;
+                                            top: 36%;
+                                            right: 28px;
+                                            @include mq (338px) {
+                                                width: 6%;
+                                                top: 42%;
+                                                right: 28px;
+                                            }
+                                        }                           
+                                    }
+                                    & > .entry-contents__container__detail__contact__sec__info__text {
+                                        margin-left: 16px;
+                                        @include mq (400px) {
+                                            margin-left: 16px;
+                                            width: 100%;
+                                        }
+                                    }
+                                    & > p {
+                                        margin-top: 16px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } 
+        } 
+    }
+}
+
+.entry-contents__container__detail__contact__line {
+    width: 2px;
+    height: 160px;
+    background-color: $blue;
+    @include mq (850px) {
+        width: 100%;
+        height: 2px; 
+        background-color: $blue;
+        margin: 32px 0;      
+    }
+}
+
+footer {
+    text-align: center;
+    background: $blue-grade;
+    color: $white;
+    font-size: 0.75rem;
+    padding: 8px 0;
+}
