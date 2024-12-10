@@ -2441,7 +2441,7 @@ body::-webkit-scrollbar-thumb {
 }
 @media screen and (max-width: 400px) {
   #archive > .wrapper > .archive-container {
-    margin: 0 16px;
+    margin: 0 16px 120px;
   }
 }
 #archive > .wrapper > .archive-container > h4 {
@@ -2487,10 +2487,22 @@ body::-webkit-scrollbar-thumb {
   color: #333;
   margin-bottom: 32px;
 }
-#archive > .wrapper > .archive-container > .picture-list > .picture-list__item {
+@media screen and (max-width: 600px) {
+  #archive > .wrapper > .archive-container > .picture-list {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+}
+#archive > .wrapper > .archive-container > .picture-list__item {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+@media screen and (max-width: 600px) {
+  #archive > .wrapper > .archive-container > .picture-list .picture-list__item > img {
+    width: 280px;
+  }
 }
 #archive > .wrapper > .archive-container > .archive-text {
   width: 85%;
@@ -2504,7 +2516,12 @@ body::-webkit-scrollbar-thumb {
 }
 #archive > .wrapper > .archive-container > .feedback-text {
   width: 85%;
-  margin-top: 64px;
+  margin: 64px 0 176px;
+}
+@media screen and (max-width: 520px) {
+  #archive > .wrapper > .archive-container > .feedback-text {
+    margin: 64px 0;
+  }
 }
 #archive > .wrapper > .archive-container > .feedback-title {
   background: linear-gradient(to right, #091B76, #0049BF);
@@ -2514,21 +2531,26 @@ body::-webkit-scrollbar-thumb {
   color: #fff;
   padding: 16px 32px;
   font-weight: 600;
-  top: 60%;
-  left: 15%;
+  top: 35%;
+  left: 14%;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
   border: solid 1px #fff;
 }
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 800px) {
   #archive > .wrapper > .archive-container > .feedback-title {
-    width: 80%;
+    top: 280px;
+    left: 120px;
+  }
+}
+@media screen and (max-width: 645px) {
+  #archive > .wrapper > .archive-container > .feedback-title {
+    left: 80px;
   }
 }
 @media screen and (max-width: 520px) {
   #archive > .wrapper > .archive-container > .feedback-title {
     position: static;
     width: 100%;
-    margin-top: 56px;
   }
 }
 #archive > .wrapper > .archive-container > .feedback-title::before {
@@ -2546,14 +2568,44 @@ body::-webkit-scrollbar-thumb {
     height: 16px;
   }
 }
+#archive > .wrapper > .archive-container > .feedback-list {
+  width: 75%;
+  margin: 24px 0 64px 40px;
+  background-color: #e0e4fa;
+  padding: 32px 40px;
+  border-radius: 3px;
+  font-weight: 400;
+  color: #333;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  text-align: justify;
+  border: solid 1px #091B76;
+  list-style: disc;
+  line-height: 1.75;
+}
+@media screen and (max-width: 800px) {
+  #archive > .wrapper > .archive-container > .feedback-list {
+    margin: 24px 0 64px 80px;
+  }
+}
+@media screen and (max-width: 645px) {
+  #archive > .wrapper > .archive-container > .feedback-list {
+    margin: 0 0 64px 40px;
+  }
+}
+@media screen and (max-width: 520px) {
+  #archive > .wrapper > .archive-container > .feedback-list {
+    margin: 24px 0;
+    width: 90%;
+  }
+}
 
 .feedback-line__width--inview {
   width: 98%;
   height: 0.1em;
   background-color: #091B76;
   position: absolute;
-  top: 180px;
-  left: 10px;
+  top: 340px;
+  left: 50px;
   right: unset;
   -webkit-animation: feedbackwAnime 3s linear forwards;
           animation: feedbackwAnime 3s linear forwards;
@@ -2568,7 +2620,7 @@ body::-webkit-scrollbar-thumb {
     opacity: 1;
   }
   100% {
-    width: 100%;
+    width: 90%;
     opacity: 1;
   }
 }
@@ -2581,18 +2633,18 @@ body::-webkit-scrollbar-thumb {
     opacity: 1;
   }
   100% {
-    width: 100%;
+    width: 90%;
     opacity: 1;
   }
 }
-@media screen and (max-width: 1050px) {
+@media screen and (max-width: 930px) {
   .feedback-line__width--inview {
     width: 98%;
     height: 0.1em;
     background-color: #091B76;
     position: absolute;
-    top: 180px;
-    left: 10px;
+    top: 360px;
+    left: 50px;
     right: unset;
     -webkit-animation: feedbackwAnime 3s linear forwards;
             animation: feedbackwAnime 3s linear forwards;
@@ -2607,7 +2659,7 @@ body::-webkit-scrollbar-thumb {
       opacity: 1;
     }
     100% {
-      width: 95%;
+      width: 90%;
       opacity: 1;
     }
   }
@@ -2620,19 +2672,19 @@ body::-webkit-scrollbar-thumb {
       opacity: 1;
     }
     100% {
-      width: 95%;
+      width: 90%;
       opacity: 1;
     }
   }
 }
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 645px) {
   .feedback-line__width--inview {
     width: 98%;
     height: 0.1em;
     background-color: #091B76;
     position: absolute;
-    top: 210px;
-    left: 10px;
+    top: 360px;
+    left: 30px;
     right: unset;
     -webkit-animation: feedbackwAnime 3s linear forwards;
             animation: feedbackwAnime 3s linear forwards;
@@ -2647,7 +2699,7 @@ body::-webkit-scrollbar-thumb {
       opacity: 1;
     }
     100% {
-      width: 95%;
+      width: 90%;
       opacity: 1;
     }
   }
@@ -2660,7 +2712,7 @@ body::-webkit-scrollbar-thumb {
       opacity: 1;
     }
     100% {
-      width: 95%;
+      width: 90%;
       opacity: 1;
     }
   }
@@ -2673,11 +2725,11 @@ body::-webkit-scrollbar-thumb {
 
 .feedback-line__height--inview {
   width: 0.1em;
-  height: 41%;
+  height: 70%;
   background-color: #091B76;
   position: absolute;
-  top: 80px;
-  left: 40px;
+  top: 240px;
+  left: 90px;
   right: unset;
   -webkit-animation: feedbackAnime 3s linear 1s forwards;
           animation: feedbackAnime 3s linear 1s forwards;
@@ -2691,7 +2743,7 @@ body::-webkit-scrollbar-thumb {
     opacity: 1;
   }
   100% {
-    height: 41%;
+    height: 70%;
     opacity: 1;
   }
 }
@@ -2703,18 +2755,18 @@ body::-webkit-scrollbar-thumb {
     opacity: 1;
   }
   100% {
-    height: 41%;
+    height: 70%;
     opacity: 1;
   }
 }
 @media screen and (max-width: 850px) {
   .feedback-line__height--inview {
     width: 0.1em;
-    height: 43%;
+    height: 70%;
     background-color: #091B76;
     position: absolute;
-    top: 80px;
-    left: 40px;
+    top: 240px;
+    left: 90px;
     right: unset;
     -webkit-animation: feedbackAnime 3s linear 1s forwards;
             animation: feedbackAnime 3s linear 1s forwards;
@@ -2728,7 +2780,7 @@ body::-webkit-scrollbar-thumb {
       opacity: 1;
     }
     100% {
-      height: 43%;
+      height: 70%;
       opacity: 1;
     }
   }
@@ -2740,19 +2792,19 @@ body::-webkit-scrollbar-thumb {
       opacity: 1;
     }
     100% {
-      height: 43%;
+      height: 70%;
       opacity: 1;
     }
   }
 }
-@media screen and (max-width: 630px) {
+@media screen and (max-width: 645px) {
   .feedback-line__height--inview {
     width: 0.1em;
-    height: 40%;
+    height: 70%;
     background-color: #091B76;
     position: absolute;
-    top: 80px;
-    left: 40px;
+    top: 240px;
+    left: 60px;
     right: unset;
     -webkit-animation: feedbackAnime 3s linear 1s forwards;
             animation: feedbackAnime 3s linear 1s forwards;
@@ -2766,7 +2818,7 @@ body::-webkit-scrollbar-thumb {
       opacity: 1;
     }
     100% {
-      height: 40%;
+      height: 70%;
       opacity: 1;
     }
   }
@@ -2778,7 +2830,7 @@ body::-webkit-scrollbar-thumb {
       opacity: 1;
     }
     100% {
-      height: 40%;
+      height: 70%;
       opacity: 1;
     }
   }

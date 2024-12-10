@@ -1496,7 +1496,7 @@ body {
             align-items: center;
             position: relative;
             @include mq (400px) {
-                margin: 0 16px;
+                margin: 0 16px 120px;
             }
             & > h4 {
                 background: $bg-grade;
@@ -1541,10 +1541,20 @@ body {
                 text-align: center;
                 color: $black;
                 margin-bottom: 32px;
-                & > .picture-list__item {
+                @include mq (600px) {
+                    flex-direction: column;
+                    width: 100%;
+                    align-items: center;
+                }
+                &__item {
                     display: flex;
                     flex-direction: column;
                     gap: 16px;
+                }
+                & .picture-list__item > img {
+                    @include mq (600px) {
+                        width: 280px;
+                    }
                 }
             }
             & > .archive-text {
@@ -1559,7 +1569,10 @@ body {
             }
             & > .feedback-text {
                 width: 85%;
-                margin-top: 64px;
+                margin: 64px 0 176px;
+                @include mq (520px) {
+                    margin: 64px 0;
+                }
             }
             & > .feedback-title {
                 background: $blue-grade;
@@ -1569,17 +1582,20 @@ body {
                 color: $white;
                 padding: 16px 32px;
                 font-weight: 600;
-                top: 60%;
-                left: 15%;
+                top: 35%;
+                left: 14%;
                 box-shadow: 3px 3px 10px $black50;
                 border: solid 1px $white;
-                @include mq (700px) {
-                    width: 80%;
+                @include mq (800px) {
+                    top: 280px;
+                    left: 120px;
+                }
+                @include mq (645px) {
+                    left: 80px;
                 }
                 @include mq (520px) {
                     position: static;
                     width: 100%;
-                    margin-top: 56px;
                 }
                 &::before {
                     content: "";
@@ -1595,17 +1611,41 @@ body {
                     }
                 }
             }
+            & > .feedback-list {
+                width: 75%;
+                margin: 24px 0 64px 40px;
+                background-color: $blue-bg;
+                padding: 32px 40px;
+                border-radius: 3px;
+                font-weight: 400;
+                color: $black;
+                box-shadow: 5px 5px 5px $black30;
+                text-align: justify;
+                border: solid 1px $blue;
+                list-style: disc;
+                line-height: 1.75;
+                @include mq (800px) {
+                    margin: 24px 0 64px 80px;
+                }
+                @include mq (645px) {
+                    margin: 0 0 64px 40px;
+                }
+                @include mq (520px) {
+                    margin: 24px 0;
+                    width: 90%;
+                }
+            }
         }
     }    
 }
 
 .feedback-line__width--inview {
-    @include linew(.1em, 180px, 10px, unset, "feedbackwAnime", 100%);
-    @include mq(1050px) {
-        @include linew(.1em, 180px, 10px, unset, "feedbackwAnime", 95%);
+    @include linew(.1em, 340px, 50px, unset, "feedbackwAnime", 90%);
+    @include mq(930px) {
+        @include linew(.1em, 360px, 50px, unset, "feedbackwAnime", 90%);
     }
-    @include mq(700px) {
-        @include linew(.1em, 210px, 10px, unset, "feedbackwAnime", 95%);
+    @include mq(645px) {
+        @include linew(.1em, 360px, 30px, unset, "feedbackwAnime", 90%);
     }
     @include mq (520px) {
         display: none;
@@ -1613,12 +1653,12 @@ body {
 } 
  
 .feedback-line__height--inview {
-    @include lineh(41%, 80px, 40px, unset, 41%, "feedbackAnime");
+    @include lineh(70%, 240px, 90px, unset, 70%, "feedbackAnime");
     @include mq (850px) {
-        @include lineh(43%, 80px, 40px, unset, 43%, "feedbackAnime");
+        @include lineh(70%, 240px, 90px, unset, 70%, "feedbackAnime");
     }
-    @include mq (630px) {
-        @include lineh(40%, 80px, 40px, unset, 40%, "feedbackAnime");
+    @include mq (645px) {
+        @include lineh(70%, 240px, 60px, unset, 70%, "feedbackAnime");
     }
     @include mq (520px) {
         display: none;
